@@ -38,11 +38,10 @@ async function run() {
             res.send(result)
         });
 
-        //update 
         app.put('/users/:id', async (req, res) => {
             const id = req.params.id;
-            const filter = { _id: new ObjectId(id) };
             const user = req.body;
+            const filter = { _id: new ObjectId(id) };
             const option = { upsert: true };
             const updatedUser = {
                 $set: {
@@ -50,7 +49,7 @@ async function run() {
                     address: user.address,
                     email: user.email
                 }
-            }
+            };
             const result = await userCollection.updateOne(filter, updatedUser, option);
             res.send(result)
         })
@@ -59,14 +58,14 @@ async function run() {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
             const result = await userCollection.deleteOne(query);
-            res.send(result)
+            res.send(result);
         })
     }
     finally {
 
     }
 }
-run().catch(err => console.log(err));
+run().catch(err => console.log(err))
 
 // async function run() {
 //     try {
@@ -78,22 +77,21 @@ run().catch(err => console.log(err));
 //             const users = await cursor.toArray();
 //             res.send(users)
 //         });
-//         // get user by id
+
 //         app.get('/users/:id', async (req, res) => {
 //             const id = req.params.id;
 //             const query = { _id: new ObjectId(id) };
 //             const user = await userCollection.findOne(query);
 //             res.send(user)
-//         });
+//         })
 
 //         app.post('/users', async (req, res) => {
 //             const user = req.body;
-//             console.log(user)
 //             const result = await userCollection.insertOne(user);
 //             res.send(result)
 //         });
 
-//         //update
+//         //update 
 //         app.put('/users/:id', async (req, res) => {
 //             const id = req.params.id;
 //             const filter = { _id: new ObjectId(id) };
@@ -110,22 +108,19 @@ run().catch(err => console.log(err));
 //             res.send(result)
 //         })
 
-//         // for delete
 //         app.delete('/users/:id', async (req, res) => {
 //             const id = req.params.id;
-//             // console.log('trying to delete ', id);
 //             const query = { _id: new ObjectId(id) };
 //             const result = await userCollection.deleteOne(query);
-//             console.log(result);
 //             res.send(result)
-//         });
-
+//         })
 //     }
 //     finally {
 
 //     }
-// };
+// }
 // run().catch(err => console.log(err));
+
 
 
 app.get('/', (req, res) => {
